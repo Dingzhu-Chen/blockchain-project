@@ -1,0 +1,167 @@
+import { useState } from "react";
+import $u from "../utils/$u.js";
+import { ethers } from "ethers";
+
+const wc = require("../circuit/witness_calculator.js");
+
+const tornadoAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
+const tornadoJSON =require("../json/Tornado.json");
+const tornadoABI = tornadoJSON.abi;
+const tornadoInterface = new ethers.Interface(tornadoABI);
+
+const Interface = () => {
+    const [account, updateAccount] = useState(null);
+
+    const connectMetamask = async () => {
+        try {
+            if (!window.ethereum) {
+                alert("Please install Metamask to use this app.");
+                throw "no-metamask";
+            }
+
+            var accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+            var chainId = window.ethereum.networkVersion;
+            var activeAccount = accounts[0];
+            var balance = await window.ethereum.request({ method: "eth_getBalance", params: [activeAccount, "latest"] });
+            balance = ethers.formatEther(balance);
+
+            var newAccountState = {
+                chainId: chainId,
+                address: activeAccount,
+                balance: balance
+            };
+            updateAccount(newAccountState);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    
+    const depositEther = async () => {
+        try {
+            console.log("Starting depositEther function...");
+    
+            const secret = ethers.toBigInt(ethers.getBytes(ethers.randomBytes(32))).toString();
+            const nullifier = ethers.toBigInt(ethers.getBytes(ethers.randomBytes(32))).toString();
+    
+            console.log("Generated Secret:", secret);
+            console.log("Generated Nullifier:", nullifier);
+    
+            const input = {
+                secret: $u.BN256ToBin(secret).split("").map(Number),
+                nullifier: $u.BN256ToBin(nullifier).split("").map(Number)
+            };
+    
+            console.log("Constructed input for witness calculation:", input);
+    
+            var res = await fetch("/deposit.wasm"); 
+            var buffer = await res.arrayBuffer(); 
+            var depositWC = await wc(buffer);
+    
+            const r = await depositWC.calculateWitness(input, 0);
+    
+            console.log("Witness calculation result:", r);
+    
+            const commitment = r[1];
+            const nullifierHash = r[2];
+    
+            console.log("Commitment:", commitment);
+            console.log("Nullifier Hash:", nullifierHash);
+    
+            // Ensure value is in correct format (BigInt)
+            const value = ethers.toBigInt("1000000000000000"); // 0.001 ETH
+    
+            // Encode function data
+            const depositCalldata = tornadoInterface.encodeFunctionData("deposit", [commitment]);
+    
+            console.log("Encoded deposit calldata:", depositCalldata);
+    
+            // Prepare transaction
+            const tx = {
+                to: tornadoAddress,
+                from: account.address,
+                value: value.toString(), // Ensure it's properly formatted
+                gasLimit: "500000", // Adjusted gas limit
+                data: depositCalldata
+            };
+    
+            console.log("Prepared transaction:", tx);
+    
+            // Send transaction
+            const txHash = await window.ethereum.request({
+                method: "eth_sendTransaction",
+                params: [tx],
+            });
+    
+            console.log("Transaction sent, hash:", txHash);
+    
+            // Wait for receipt
+            const receipt = await window.ethereum.request({
+                method: "eth_getTransactionReceipt",
+                params: [txHash],
+            });
+    
+            console.log("Transaction receipt:", receipt);
+    
+            if (!receipt || !receipt.logs || receipt.logs.length === 0) {
+                console.error("No logs found in receipt. Possible failure.");
+                return;
+            }
+    
+            // Decode event log
+            const log = receipt.logs[0];
+            console.log("Log received:", log);
+    
+            const decodedData = tornadoInterface.decodeEventLog("Deposit", log.data, log.topics);
+            console.log("Decoded deposit event:", decodedData);
+    
+        } catch (e) {
+            console.error("Transaction error:", e);
+        }
+    };
+    
+
+
+
+    return (
+        <div>
+            {
+                !!account ? (
+                    <div>
+                        <p>ChainId: {account.chainId}</p>
+                        <p>Wallet Address: {account.address}</p>
+                        <p>Balance: {account.balance} ETH</p>
+                    </div>
+                ) : (
+                    <div>
+                        <button onClick={connectMetamask}>Connect Metamask</button>
+                    </div>
+                )
+            }
+
+            <div>
+                <hr/>
+            </div>
+            {
+                !!account ? (
+                    <div>
+                        <button onClick={depositEther}>Deposit 1 ETH</button>
+                    </div>
+                ) : (
+                    <div>
+                        <p>You need to connect Metamask to use this section.</p>
+                    </div>
+                )
+            }
+
+
+
+
+        </div>
+    );
+}
+    export default Interface;
+    
+
+
+
+
