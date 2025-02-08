@@ -9,6 +9,7 @@
 用户生成 secret 和 nullifier，计算 commitment 并存入 Merkle 树，确保存款过程匿名。
 
 <span style="color:gray; font-weight:bold;">对应代码文件</span>
+<strong><span style="color:gray;">灰色加粗文本</span></strong>
 
 commitment_hasher.circom：生成 commitment 和 nullifierHash。
 
