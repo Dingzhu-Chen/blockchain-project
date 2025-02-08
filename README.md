@@ -39,14 +39,15 @@ interface.js：前端生成证明并调用提款函数。
 
 Tornado.sol：使用 nullifierHashes 映射记录已使用的无效符哈希。
 
-<strong><span style="color:green;">总结</span></strong>
+<strong><span style="color:green;">项目总结</span></strong>
+
 该 DApp 实现了匿名存款、匿名取款和防重复取款功能，主要依赖以下技术：
 
 零知识证明（Groth16 协议）确保隐私性。
 
 Merkle 树管理存款承诺。
 
-无效符哈希防止双花攻击。
+无效符(nullifier)哈希防止双花攻击。
 
 <span style="color:gray; font-weight:bold;">对应代码文件</span>
 
