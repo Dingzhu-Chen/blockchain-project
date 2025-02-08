@@ -1,5 +1,5 @@
 首先再backend目录开启npx hardhat node
-![45c1b43f0aa80ea0c21ee3f891f2bce](https://github.com/user-attachments/assets/569dd953-e6a6-469c-a946-c9fdb89b7e4c)
+<img src="https://github.com/user-attachments/assets/569dd953-e6a6-469c-a946-c9fdb89b7e4c" width="50%">
 
 然后用脚本deploy.js部署三个合约
 ![5ce918b1796e9cce8f4e84af1f7b09d](https://github.com/user-attachments/assets/d5a3e032-2024-4abc-88ea-aa8bd0bddb9a)
