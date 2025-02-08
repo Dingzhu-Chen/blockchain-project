@@ -33,10 +33,10 @@
 
 在钱包上确认后，DApp会返回一串存款字符串，同时account4界面会显示消费了1ETH
 
-<img src="https://github.com/user-attachments/assets/7691a382-7a79-4367-9867-ad60e6f426e8" width="39%">
+<img src="https://github.com/user-attachments/assets/7691a382-7a79-4367-9867-ad60e6f426e8" width="49%">
 
 
-<img src="https://github.com/user-attachments/assets/5b1835bd-7afd-472f-a1d1-4ecda6b9e3ab" width="39%">
+<img src="https://github.com/user-attachments/assets/5b1835bd-7afd-472f-a1d1-4ecda6b9e3ab" width="29%">
 
 
 复制该字符串，在metamask中将account4切换成account5, 刷新DApp界面，连接account5, 将存款字符串黏贴到输入框
