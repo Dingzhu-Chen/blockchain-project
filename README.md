@@ -8,7 +8,7 @@
 功能描述
 用户生成 secret 和 nullifier，计算 commitment 并存入 Merkle 树，确保存款过程匿名。
 
-对应代码文件
+<span style="color:gray; font-weight:bold;">对应代码文件</span>
 
 commitment_hasher.circom：生成 commitment 和 nullifierHash。
 
@@ -20,7 +20,7 @@ interface.js：前端生成随机值并调用合约存款函数。
 功能描述
 用户提供零知识证明，证明其拥有有效的 secret 和 nullifier，合约验证后执行提款。
 
-对应代码文件
+<span style="color:gray; font-weight:bold;">对应代码文件</span>
 
 withdraw.circom：零知识证明电路，验证 Merkle 树路径和 nullifierHash。
 
@@ -32,7 +32,7 @@ interface.js：前端生成证明并调用提款函数。
 功能描述
 通过记录已使用的 nullifierHash，确保每个提款操作只能执行一次。
 
-对应代码文件
+<span style="color:gray; font-weight:bold;">对应代码文件</span>
 
 Tornado.sol：使用 nullifierHashes 映射记录已使用的无效符哈希。
 
@@ -45,7 +45,7 @@ Merkle 树管理存款承诺。
 
 无效符哈希防止双花攻击。
 
-代码文件
+<span style="color:gray; font-weight:bold;">对应代码文件</span>
 
 核心逻辑：Tornado.sol
 
@@ -55,7 +55,7 @@ Merkle 树管理存款承诺。
 
 ## 使用方法和流程
 
-首先再backend目录开启npx hardhat node
+首先在backend目录开启npx hardhat node
 
 <img src="https://github.com/user-attachments/assets/569dd953-e6a6-469c-a946-c9fdb89b7e4c" width="39%">
 
