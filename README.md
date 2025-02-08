@@ -30,14 +30,27 @@
 
 <img src="https://github.com/user-attachments/assets/220086ff-616b-46da-bdf4-abae4f7b48ea" width="39%">
 
-在钱包上确认后，DApp会返回一串存款字符串
+
+在钱包上确认后，DApp会返回一串存款字符串，同时account4界面会显示消费了1ETH
 
 <img src="https://github.com/user-attachments/assets/7691a382-7a79-4367-9867-ad60e6f426e8" width="39%">
 
 
+<img src="https://github.com/user-attachments/assets/5b1835bd-7afd-472f-a1d1-4ecda6b9e3ab" width="39%">
 
 
+复制该字符串，在metamask中将account4切换成account5, 刷新DApp界面，连接account5, 将存款字符串黏贴到输入框
 
+<img src="https://github.com/user-attachments/assets/f1e1c115-9f66-4e0d-8ce9-e54818c9d007" width="39%">
+
+
+点击取款按钮Withdraw 1 ETH后， Metamask会跳出取款交易界面
+
+<img src="https://github.com/user-attachments/assets/1a3e6b80-e911-4318-8b1c-2477ca2195d0" width="39%">
+
+点击确认，Metamask会显示交易成功，account5的余额会从原来的100000ETH变成100001ETH，浏览器console也会返回相应信息
+
+<img src="https://github.com/user-attachments/assets/cf70036e-d215-4abc-af03-c5b20f0e8eff" width="39%">
 
 
 
