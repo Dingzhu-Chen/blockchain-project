@@ -5,6 +5,7 @@
 
 ## DApp功能概述
 <strong><span style="color:green;">1. 匿名存款</span></strong>
+
 功能描述:
 <strong><span style="color:green;">用户生成 secret 和 nullifier，计算 commitment 并存入 Merkle 树，确保存款过程匿名。</span></strong>
 
@@ -17,6 +18,7 @@ Tornado.sol：处理存款逻辑，更新 Merkle 树根。
 interface.js：前端生成随机值并调用合约存款函数。
 
 <strong><span style="color:green;">2. 匿名取款</span></strong>
+
 功能描述:
 用户提供零知识证明，证明其拥有有效的 secret 和 nullifier，合约验证后执行提款。
 
@@ -29,6 +31,7 @@ Tornado.sol：验证证明并执行提款。
 interface.js：前端生成证明并调用提款函数。
 
 <strong><span style="color:green;">3. 防止重复取款</span></strong>
+
 功能描述:
 通过记录已使用的 nullifierHash，确保每个提款操作只能执行一次。
 
