@@ -1,4 +1,9 @@
-DApp 功能概述
+## 目录
+
+- [DApp 功能概述](#DApp 功能概述)
+- [使用方法](#使用方法)
+
+#DApp 功能概述
 1. 匿名存款
 功能描述
 用户生成 secret 和 nullifier，计算 commitment 并存入 Merkle 树，确保存款过程匿名。
